@@ -1,0 +1,19 @@
+{
+  "name": "ipfs-browser",
+  "version": "1.0.0",
+  "description": "An IPFS browser with keywords-CID provided mapping using OrbitDB",
+  "main": "index.js",
+  "repository": "git@github.com:ThalusA/ipfs-browser.git",
+  "author": "Alexandre Monier <alexandre.monierc@gmail.com>",
+  "scripts": {
+    "start": "serve src",
+    "db": "node db/publisher.js"
+  },
+  "license": "GPL-3.0",
+  "dependencies": {
+    "ipfs": "^0.55.3",
+    "orbit-db": "^0.26.1",
+    "orbit-db-kastore": "^1.0.2",
+    "serve": "^12.0.0"
+  }
+}

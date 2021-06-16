@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>ipfs-browser</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="ipfs-logo.svg" alt="" width="30" height="30" class="d-inline-block align-text-top">
+          ipfs-browser
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#submitModal">Submit</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid justify-content-center">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+    <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="submitModalLabel">Submit an entry to ipfs-browser</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/orbit-db@0.26.1/dist/orbitdb.js" integrity="sha256-hyVW35Y+JfcPUDLNCNcl8ELtT0p8XQQkk8TG0qU/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ipfs@0.55.3/dist/index.min.js" integrity="sha256-kAWcJOwLFbB/Pkai8zGd97qUtYVGfOVvFCsH4+RK8YY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ipfs-http-client@50.1.1/dist/index.min.js" integrity="sha256-EjtfQnFY9TWI8ZHFqKjHcqgHHnrE2uQrzQgaYgKro7I=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ipfs-provider@2.0.1/dist/index.min.js" integrity="sha256-0gpmoxZ7DiHqTnHEQM575Y8HWk1dxrlzwRejOm6yIIw=" crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+  <script>
+    const { getIpfs, providers } = window.IpfsProvider;
+    const { httpClient, jsIpfs, windowIpfs } = providers;
+    const ipfsGetter = getIpfs({
+      loadHttpClientModule: () => window.IpfsHttpClient,
+      loadJsIpfsModule: () => window.Ipfs,
+      providers: [
+        windowIpfs({ permissions: { commands: ['add', 'cat', 'id', 'version'] } }),
+        httpClient(),
+        jsIpfs()
+      ]
+    });
+    ipfs_browser(ipfsGetter, window.OrbitDB);
+  </script>
+</html>
